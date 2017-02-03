@@ -2,6 +2,7 @@ package searchclient;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
+import java.util.Stack;
 
 import searchclient.Memory;
 import searchclient.NotImplementedException;
@@ -93,34 +94,39 @@ public abstract class Strategy {
 	}
 
 	public static class StrategyDFS extends Strategy {
+		private Stack<Node> frontier;
+		private HashSet<Node> frontierSet;
 		public StrategyDFS() {
 			super();
-			throw new NotImplementedException();
+			frontier = new Stack<>();
+			frontierSet = new HashSet<Node>();
+			//throw new NotImplementedException();
 		}
 
 		@Override
 		public Node getAndRemoveLeaf() {
-			throw new NotImplementedException();
+			Node n = frontier.pop();
+			frontierSet.remove(n);
+			return n;
 		}
 
 		@Override
 		public void addToFrontier(Node n) {
-			throw new NotImplementedException();
+			frontier.push(n);
+			frontierSet.add(n);
 		}
 
 		@Override
 		public int countFrontier() {
-			throw new NotImplementedException();
+			return frontier.size();
 		}
 
 		@Override
-		public boolean frontierIsEmpty() {
-			throw new NotImplementedException();
-		}
+		public boolean frontierIsEmpty() { return frontier.isEmpty(); }
 
 		@Override
 		public boolean inFrontier(Node n) {
-			throw new NotImplementedException();
+			return frontierSet.contains(n);
 		}
 
 		@Override
