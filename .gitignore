@@ -1,3 +1,4 @@
 *.class
 searchclient/.idea/
 searchclient/searchclient.iml
+*.pdf
