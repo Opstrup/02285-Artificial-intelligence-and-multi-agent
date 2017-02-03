@@ -3,6 +3,7 @@ package searchclient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import searchclient.Memory;
@@ -22,14 +23,25 @@ public class SearchClient {
 
 		int row = 0;
 		boolean agentFound = false;
-		this.initialState = new Node(null);
-
+		ArrayList<String> serverLevel = new ArrayList<>();
+		int MAX_COL = 0;
+		int MAX_ROW = 0;
 		while (!line.equals("")) {
-			for (int col = 0; col < line.length(); col++) {
-				char chr = line.charAt(col);
+			serverLevel.add(line);
+			if(line.length() > MAX_COL) MAX_COL = line.length();
+			line = serverMessages.readLine();
+			MAX_ROW = row;
+			row++;
+		}
+		StaticLevelItems staticLevelItems = StaticLevelItems.getInstance(MAX_ROW,MAX_COL);
+		row = 0;
+		this.initialState = new Node(null);
+		for (String l : serverLevel){
+			for (int col = 0; col < l.length(); col++) {
+				char chr = l.charAt(col);
 
 				if (chr == '+') { // Wall.
-					this.initialState.walls[row][col] = true;
+					staticLevelItems.setWall(true,row, col);//this.initialState.walls[row][col] = true;
 				} else if ('0' <= chr && chr <= '9') { // Agent.
 					if (agentFound) {
 						System.err.println("Error, not a single agent level");
@@ -41,7 +53,7 @@ public class SearchClient {
 				} else if ('A' <= chr && chr <= 'Z') { // Box.
 					this.initialState.boxes[row][col] = chr;
 				} else if ('a' <= chr && chr <= 'z') { // Goal.
-					this.initialState.goals[row][col] = chr;
+					staticLevelItems.setGoal(chr,row, col);//this.initialState.goals[row][col] = chr;
 				} else if (chr == ' ') {
 					// Free space.
 				} else {
@@ -49,7 +61,6 @@ public class SearchClient {
 					System.exit(1);
 				}
 			}
-			line = serverMessages.readLine();
 			row++;
 		}
 	}
