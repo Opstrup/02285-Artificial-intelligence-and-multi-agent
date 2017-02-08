@@ -11,8 +11,8 @@ import searchclient.Command.Type;
 public class Node {
 	private static final Random RND = new Random(1);
 
-	public static int MAX_ROW = 70;
-	public static int MAX_COL = 70;
+	public static int MAX_ROW = StaticLevelItems.getInstance().getMAX_ROW();
+	public static int MAX_COL = StaticLevelItems.getInstance().getMAX_COL();
 
 	public int agentRow;
 	public int agentCol;
@@ -27,9 +27,9 @@ public class Node {
 	// this.walls[row][col] is true if there's a wall at (row, col)
 	//
 
-	public boolean[][] walls = new boolean[MAX_ROW][MAX_COL];
+	public boolean[][] walls = StaticLevelItems.getInstance().getWalls();
 	public char[][] boxes = new char[MAX_ROW][MAX_COL];
-	public char[][] goals = new char[MAX_ROW][MAX_COL];
+	public char[][] goals = StaticLevelItems.getInstance().getGoals();
 
 	public Node parent;
 	public Command action;
@@ -58,6 +58,7 @@ public class Node {
 	public boolean isGoalState() {
 		for (int row = 1; row < MAX_ROW - 1; row++) {
 			for (int col = 1; col < MAX_COL - 1; col++) {
+//				char g = StaticLevelItems.getInstance().getGoals()[row][col];
 				char g = goals[row][col];
 				char b = Character.toLowerCase(boxes[row][col]);
 				if (g > 0 && b != g) {
@@ -133,9 +134,9 @@ public class Node {
 	private Node ChildNode() {
 		Node copy = new Node(this);
 		for (int row = 0; row < MAX_ROW; row++) {
-			System.arraycopy(this.walls[row], 0, copy.walls[row], 0, MAX_COL);
+//			System.arraycopy(this.walls[row], 0, copy.walls[row], 0, MAX_COL);
 			System.arraycopy(this.boxes[row], 0, copy.boxes[row], 0, MAX_COL);
-			System.arraycopy(this.goals[row], 0, copy.goals[row], 0, MAX_COL);
+//			System.arraycopy(this.goals[row], 0, copy.goals[row], 0, MAX_COL);
 		}
 		return copy;
 	}

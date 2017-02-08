@@ -7,14 +7,21 @@ public class StaticLevelItems {
     private static StaticLevelItems instance;
     private boolean[][] walls;// = new boolean[MAX_ROW][MAX_COL];
     private char[][] goals;// = new char[MAX_ROW][MAX_COL];
+    private int MAX_ROW;
+    private int MAX_COL;
     private StaticLevelItems(int MAX_ROW, int MAX_COL){
         walls = new boolean[MAX_ROW][MAX_COL];
         goals = new char[MAX_ROW][MAX_COL];
+        this.MAX_ROW = MAX_ROW;
+        this.MAX_COL = MAX_COL;
     }
-    public static StaticLevelItems getInstance(int MAX_ROW, int MAX_COL) {
+    public static StaticLevelItems createInstance(int MAX_ROW, int MAX_COL) {
         if(instance == null) {
             instance = new StaticLevelItems(MAX_ROW, MAX_COL);
         }
+        return instance;
+    }
+    public static StaticLevelItems getInstance(){
         return instance;
     }
     public void setWall(boolean wall, int row, int col){
@@ -28,5 +35,12 @@ public class StaticLevelItems {
     }
     public boolean[][] getWalls(){
         return walls;
+    }
+    public int getMAX_ROW(){
+        return MAX_ROW;
+    }
+
+    public int getMAX_COL() {
+        return MAX_COL;
     }
 }

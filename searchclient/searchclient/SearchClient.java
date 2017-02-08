@@ -30,10 +30,10 @@ public class SearchClient {
 			serverLevel.add(line);
 			if(line.length() > MAX_COL) MAX_COL = line.length();
 			line = serverMessages.readLine();
-			MAX_ROW = row;
 			row++;
+			MAX_ROW = row;
 		}
-		StaticLevelItems staticLevelItems = StaticLevelItems.getInstance(MAX_ROW,MAX_COL);
+		StaticLevelItems staticLevelItems = StaticLevelItems.createInstance(MAX_ROW,MAX_COL);
 		row = 0;
 		this.initialState = new Node(null);
 		for (String l : serverLevel){
