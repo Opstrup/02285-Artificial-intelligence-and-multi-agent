@@ -10,7 +10,7 @@ public abstract class Heuristic implements Comparator<Node> {
 	}
 
 	public int h(Node n) {
-		throw new NotImplementedException();
+		return HeuristicHelper.goalCount(n);
 	}
 
 	public abstract int f(Node n);
