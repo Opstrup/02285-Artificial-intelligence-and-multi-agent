@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import searchclient.Memory;
 import searchclient.Strategy.*;
 import searchclient.Heuristic.*;
 
