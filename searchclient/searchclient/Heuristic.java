@@ -12,7 +12,7 @@ public abstract class Heuristic implements Comparator<Node> {
 	public int h(Node n) {
 		int goalCount = HeuristicHelper.goalCount(n);
 		int boxDistance = HeuristicHelper.boxDistanceToGoal(n);
-		return goalCount + 2*boxDistance;
+		return goalCount + boxDistance;
 	}
 
 	public abstract int f(Node n);
