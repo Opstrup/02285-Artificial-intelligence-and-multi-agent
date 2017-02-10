@@ -43,11 +43,13 @@ public class HeuristicHelper {
             for (int col = 1; col < MAX_COL - 1; col++) {
                 char b = Character.toLowerCase(n.boxes[row][col]);
                 if(b > 0) {
+
                     HashSet<Point> charSet = goalMap.get(b);
                     Iterator<Point> it = charSet.iterator();
                     while(it.hasNext()){
                         Point goal = it.next();
-                        int dist = (goal.x-col)+(goal.y-row);
+                        int dist = Math.abs(goal.x-col) + Math.abs(goal.y-row);
+                        //System.err.println("Box: "+b + "Dist to goal: "+dist);
                         distance += dist;
                     }
                 }
