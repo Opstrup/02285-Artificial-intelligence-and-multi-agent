@@ -1,18 +1,27 @@
 package searchclient;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 import searchclient.NotImplementedException;
 
 public abstract class Heuristic implements Comparator<Node> {
+	//Cache the heuristic of a node
+	private HashMap<Node,Integer> heuristicMap = new HashMap<>();
 	public Heuristic(Node initialState) {
 		// Here's a chance to pre-process the static parts of the level.
 	}
 
 	public int h(Node n) {
-		int goalCount = HeuristicHelper.goalCount(n);
-		int boxDistance = HeuristicHelper.boxDistanceToGoal(n);
-		return goalCount + boxDistance;
+		Integer h = heuristicMap.get(n);
+		if (h==null){
+			int goalCount = HeuristicHelper.goalCount(n);
+			int boxDistance = HeuristicHelper.boxDistanceToGoal(n);
+			h = Math.max(goalCount,boxDistance);
+			heuristicMap.put(n,h);
+		}
+		return h;
+
 	}
 
 	public abstract int f(Node n);

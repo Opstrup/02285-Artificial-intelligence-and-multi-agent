@@ -139,26 +139,31 @@ public abstract class Strategy {
 	// Ex 3: Best-first Search uses a priority queue (Java contains no implementation of a Heap data structure)
 	public static class StrategyBestFirst extends Strategy {
 		private Heuristic heuristic;
-		private PriorityQueue<Node> frontier;
+//		private PriorityQueue<Node> frontier;
+		private FibonacciHeap<Node> frontier;
 		private HashSet<Node> frontierSet;
 		public StrategyBestFirst(Heuristic h) {
 			super();
 			this.heuristic = h;
-			frontier = new PriorityQueue<>(heuristic);
+			frontier = new FibonacciHeap<>();
+//			frontier = new PriorityQueue<>(heuristic);
 			frontierSet = new HashSet<>();
 			//throw new NotImplementedException();
 		}
 
 		@Override
 		public Node getAndRemoveLeaf() {
-			Node n = frontier.poll();
+//			Node n = frontier.poll();
+			Node n = frontier.dequeueMin().getValue();
 			frontierSet.remove(n);
 			return n;
 		}
 
 		@Override
 		public void addToFrontier(Node n) {
-			frontier.add(n);
+//			frontier.add(n);
+			double priority = heuristic.f(n);
+			frontier.enqueue(n, priority);
 			frontierSet.add(n);
 		}
 

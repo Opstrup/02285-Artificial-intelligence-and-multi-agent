@@ -43,14 +43,14 @@ public class HeuristicHelper {
             for (int col = 1; col < MAX_COL - 1; col++) {
                 char b = Character.toLowerCase(n.boxes[row][col]);
                 if(b > 0) {
-
                     HashSet<Point> charSet = goalMap.get(b);
                     Iterator<Point> it = charSet.iterator();
+                    int agentDistToBox = (Math.abs(n.agentCol-col) + Math.abs(n.agentRow-row))-1;//Manhattan distance: Agent to box subtract one because agent only has to be next to box to interact
+//                    distance += agentDistToBox;
                     while(it.hasNext()){
                         Point goal = it.next();
-                        int dist = Math.abs(goal.x-col) + Math.abs(goal.y-row);
-                        //System.err.println("Box: "+b + "Dist to goal: "+dist);
-                        distance += dist;
+                        int boxDistToGoal = Math.abs(goal.x-col) + Math.abs(goal.y-row);//Manhattan distance box to goal.
+                        distance += boxDistToGoal;
                     }
                 }
             }
